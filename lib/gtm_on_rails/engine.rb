@@ -14,16 +14,16 @@ module GtmOnRails
   def self.config
     @config ||= GtmOnRails::Config.new
   end
- 
+
   def self.configure(&block)
     yield(config) if block_given?
   end
-  
+
   class Engine < ::Rails::Engine
     isolate_namespace GtmOnRails
 
     initializer 'gtm_on_rails.action_controller_extension' do
-      ActiveSupport.on_load :action_controller do
+      ActiveSupport.on_load :action_controller_base do
         include GtmOnRails::Controllers::InitializeDataLayer
       end
     end
